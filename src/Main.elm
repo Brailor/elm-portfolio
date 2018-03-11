@@ -1,6 +1,5 @@
 module Main exposing (..)
 
-import FontAwesome.Web as Icon
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -19,13 +18,14 @@ type State
     = Home
     | Resume
     | Work
+    | Blog
     | Contact
 
 
 init : ( Model, Cmd Msg )
 init =
     ( { pageState = Home
-      , states = [ Home, Resume, Work, Contact ]
+      , states = [ Home, Resume, Work, Blog, Contact ]
       }
     , Cmd.none
     )
@@ -54,12 +54,17 @@ update msg model =
 ---- VIEW ----
 
 
+blogSection : Html msg
+blogSection =
+    div [] []
+
+
 headerSection : List State -> Html Msg
 headerSection states =
     header [ id "main-header" ]
         [ div [ class "row no-gutters" ]
             [ div [ class "col-lg-4 col-md-5" ]
-                [ img [ src "img/person1.jpg" ] [] ]
+                [ img [ src "" ] [] ]
             , div [ class "col-lg-8 col-md-7" ]
                 [ div [ class "d-flex flex-column" ]
                     [ div [ class "p-5 bg-dark text-white" ]
@@ -100,7 +105,7 @@ homeSection =
             , h4 [] [ text "JavaScript" ]
             , h6 [] [ text "React, Redux, Vue" ]
             , div [ class "progress mb-3" ]
-                [ div [ class "progress-bar bg-success", attribute "style" "width:90%" ] []
+                [ div [ class "progress-bar bg-success", attribute "style" "width:95%" ] []
                 ]
             , h4 [] [ text "Elm" ]
             , h6 [ class "smoked" ] [ text "This whole site is made with Elm :)" ]
@@ -131,10 +136,10 @@ resumeSection =
             , div [ class "card-deck" ]
                 [ div [ class "card" ]
                     [ div [ class "card-body" ]
-                        [ h4 [ class "card-title" ] [ text "Lufhansa Systems Hungary" ]
+                        [ h4 [ class "card-title" ] [ text "Lufhansa Systems Hungaria" ]
                         , p [ class "card-text" ]
                             [ text "While I worked here I was a part of the MyIdTravel team which aimed to develop enterprise ready applications for multiple customers around the world." ]
-                        , p [ class "p-2 mb-3 bg-dark text-white" ] [ text "Position: Front End Developer" ]
+                        , p [ class "p-2 mb-3 bg-dark text-white" ] [ text "Position: JavaScript Developer" ]
                         , p [ class "p-2 mb-3 bg-dark text-white" ] [ text "Phone: (333) 333-3333" ]
                         ]
                     , div [ class "card-footer" ]
@@ -223,24 +228,24 @@ contactSection =
                 [ div [ class "form-group" ]
                     [ div [ class "input-group input-group-lg" ]
                         [ span [ class "input-group-addon bg-danger text-white" ] []
-                        , input [ class "form-control bg-dark text-white", placeholder "Name", type_ "text" ] []
+                        , input [ class "form-control  ", placeholder "Name", type_ "text" ] []
                         ]
                     ]
                 , div [ class "form-group" ]
                     [ div [ class "input-group input-group-lg" ]
                         [ span [ class "input-group-addon bg-danger text-white" ]
                             []
-                        , input [ class "form-control bg-dark text-white", placeholder "Email", type_ "email" ]
+                        , input [ class "form-control ", placeholder "Email", type_ "email" ]
                             []
                         ]
                     ]
                 , div [ class "form-group" ]
                     [ div [ class "input-group input-group-lg" ]
                         [ span [ class "input-group-addon bg-danger text-white" ] []
-                        , textarea [ class "form-control bg-dark text-white", placeholder "Message", attribute "rows" "5" ] []
+                        , textarea [ class "form-control ", placeholder "Message", attribute "rows" "5" ] []
                         ]
                     ]
-                , input [ class "btn btn-danger btn-block btn-lg", type_ "submit", value "Submit" ]
+                , input [ class "btn btn-success btn-block btn-lg", type_ "submit", value "Submit" ]
                     []
                 ]
             ]
@@ -271,6 +276,9 @@ getSectionButtonClass state =
         Work ->
             "warning"
 
+        Blog ->
+            "blog"
+
         Contact ->
             "danger"
 
@@ -300,6 +308,9 @@ getSection state =
 
         Work ->
             workSection
+
+        Blog ->
+            blogSection
 
         Contact ->
             contactSection
